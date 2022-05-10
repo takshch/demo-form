@@ -1,0 +1,28 @@
+.register-page {
+  display: flex;
+  gap: 20px;
+
+  max-width: 800px;
+  padding: 0 16px;
+  padding-top: 25px;
+  margin: 0 auto;
+
+  > .back-btn {
+    color: rgb(0, 151, 199);
+    padding: 4px;
+
+    > .text {
+      text-decoration: underline;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+
+  > .content {
+    flex: auto;
+  }
+
+  @media screen and (max-width: 512px) {
+    flex-direction: column;
+  }
+}

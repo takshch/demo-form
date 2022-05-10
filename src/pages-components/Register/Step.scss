@@ -1,0 +1,17 @@
+.register-step {
+  display: grid;
+  gap: 14px;
+  text-align: center;
+
+  > .heading {
+    color: rgb(55, 81, 126);
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    font-size: 22px;
+  }
+
+  &.email {
+    max-width: 450px;
+    margin: 0 auto;
+  }
+}
