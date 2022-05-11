@@ -8,10 +8,18 @@ const StepEmail = ({ onNext }) => {
   const [value, onInputHandler] = useInputField();
 
   return (
-    <Step heading="Create your account" className="email">
-      <InputField type="text" onInput={onInputHandler} />
-      <Button text="Next" onClick={() => onNext(value)} />
-    </Step>
+    <form onSubmit={() => onNext(value)}>
+      <Step heading="Create your account" className="email">
+        <InputField
+          type="email"
+          placeholder="Enter email address"
+          autoComplete="email"
+          onInput={onInputHandler}
+          required={true}
+        />
+        <Button text="Next" />
+      </Step>
+    </form>
   )
 };
 
