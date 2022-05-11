@@ -3,11 +3,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 import StepEmail from '../pages-components/Register/StepEmail';
 import RenderConditionally from '../components/RenderConditionally';
 import StepAccountType from '../pages-components/Register/StepAccountType';
+import StepCountry from '../pages-components/Register/StepCountry';
 import './Register.scss';
+
+const register = (details) => {
+  console.log(details);
+  alert("You have been successfully registered");
+};
 
 const ACTIONS = {
   ADD_EMAIL: 'ADD_EMAIL',
   ADD_ACCOUNT_TYPE: 'ADD_ACCOUNT_TYPE',
+  ADD_COUNTRY: 'COUNTRY',
 };
 
 const reducer = (state, action) => {
@@ -16,12 +23,15 @@ const reducer = (state, action) => {
       return { ...state, email: action.payload };
     case ACTIONS.ADD_ACCOUNT_TYPE:
       return { ...state, accountType: action.payload };
+    case ACTIONS.ADD_COUNTRY:
+      return { ...state, country: action.payload };
     default:
       return state;
   }
 };
 
 const ACCOUNT_TYPES = ['personal', 'business'];
+const COUNTRIES = ['India', 'Pakistan', 'Nepal', 'Mayanmar', 'Bangladesh', 'USA'];
 
 const STEPS = {
   EMAIL: 'email',
@@ -48,11 +58,13 @@ function RegisterPage() {
 
   return (
     <div className="register-page">
-      <div className="back-btn">
-        <div className="text">
-          Back
+      {step !== STEPS.EMAIL && (
+        <div className="back-btn" onClick={() => navigate(-1)}>
+          <div className="text">
+            Back
+          </div>
         </div>
-      </div>
+      )}
       <div className="content">
         <RenderConditionally when={step === STEPS.EMAIL}>
           <StepEmail onNext={
@@ -65,6 +77,18 @@ function RegisterPage() {
             accountChoices={ACCOUNT_TYPES}
             onNext={
               (payload) => onNext({ type: ACTIONS.ADD_ACCOUNT_TYPE, payload, nextStep: STEPS.COUNTRY })
+            }
+          />
+        </RenderConditionally>
+
+        <RenderConditionally when={step === STEPS.COUNTRY}>
+          <StepCountry
+            countries={COUNTRIES}
+            onNext={
+              (payload) => {
+                onNext({ type: ACTIONS.ADD_COUNTRY, payload });
+                register(state);
+              }
             }
           />
         </RenderConditionally>
