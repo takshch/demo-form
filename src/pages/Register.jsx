@@ -2,24 +2,31 @@ import React, { useCallback, useEffect, useReducer } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import StepEmail from '../pages-components/Register/StepEmail';
 import RenderConditionally from '../components/RenderConditionally';
+import StepAccountType from '../pages-components/Register/StepAccountType';
 import './Register.scss';
 
 const ACTIONS = {
   ADD_EMAIL: 'ADD_EMAIL',
+  ADD_ACCOUNT_TYPE: 'ADD_ACCOUNT_TYPE',
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.ADD_EMAIL:
       return { ...state, email: action.payload };
+    case ACTIONS.ADD_ACCOUNT_TYPE:
+      return { ...state, accountType: action.payload };
     default:
       return state;
   }
 };
 
+const ACCOUNT_TYPES = ['personal', 'business'];
+
 const STEPS = {
   EMAIL: 'email',
   ACCOUNT_TYPE: 'account-type',
+  COUNTRY: 'country',
 };
 
 function RegisterPage() {
@@ -51,6 +58,15 @@ function RegisterPage() {
           <StepEmail onNext={
             (payload) => onNext({ type: ACTIONS.ADD_EMAIL, payload, nextStep: STEPS.ACCOUNT_TYPE })
           } />
+        </RenderConditionally>
+
+        <RenderConditionally when={step === STEPS.ACCOUNT_TYPE}>
+          <StepAccountType
+            accountChoices={ACCOUNT_TYPES}
+            onNext={
+              (payload) => onNext({ type: ACTIONS.ADD_ACCOUNT_TYPE, payload, nextStep: STEPS.COUNTRY })
+            }
+          />
         </RenderConditionally>
       </div>
     </div>

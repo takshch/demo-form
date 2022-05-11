@@ -14,4 +14,26 @@
     max-width: 450px;
     margin: 0 auto;
   }
+
+  &.account-type {
+    max-width: 600px;
+    margin: 0 auto;
+
+    > .choices {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+
+      > .choice {
+        border: 2px solid #eeee;
+        padding: 15px 22px;
+        cursor: pointer;
+        border-radius: 3px;
+
+        &.selected {
+          border-color: #008fc9;
+        }
+      }
+    }
+  }
 }
